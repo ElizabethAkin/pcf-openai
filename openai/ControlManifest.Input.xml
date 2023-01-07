@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <control namespace="pcf" constructor="openai" version="0.0.1" display-name-key="openai" description-key="openai description" control-type="virtual" >
+    <external-service-usage enabled="false">
+    </external-service-usage>
+    <property name="ResultAttribute" display-name-key="Result Attribute" description-key="Result Attribute" of-type="SingleLine.Text" usage="bound" required="true" />
+    <property name="QuestionParameter" display-name-key="Question Parameter" description-key="Question Parameter" of-type="SingleLine.Text" usage="bound" required="true" />
+    <property name="QuestionText" display-name-key="Question Text" description-key="Question Text" of-type="SingleLine.Text" usage="input" required="true" />  
+    <property name="VariableOpenAIapiKey" display-name-key="Environment Variable OpenAI API Key" description-key="Environment Variable that contains OpenAI API Key" of-type="SingleLine.Text" usage="input" required="true" />  
+    <resources>
+      <code path="index.ts" order="1" />
+    </resources>
+    <feature-usage>
+      <uses-feature name="WebAPI" required="true" />
+    </feature-usage>
+  </control>
+</manifest>

@@ -1,13 +1,10 @@
 import * as React from "react";
-import { IIconProps, IContextualMenuProps, Stack, Link } from '@fluentui/react';
-import { IconButton } from '@fluentui/react/lib/Button';
+import { Stack } from '@fluentui/react';
 
 export interface IAppProps{
     openAIResponse: string;
     refreshHandler:()=>void;
 }
-
-const refreshIcon: IIconProps = { iconName: 'Refresh' };
 
 export const App: React.FC<IAppProps>=props=>{
     return (

@@ -1,7 +1,7 @@
 {
-  "name": "pcf-project",
+  "name": "pcf-openai",
   "version": "1.0.0",
-  "description": "Project containing your PowerApps Component Framework (PCF) control.",
+  "description": "Power Platform custom control (PCF) to interact with OpenAI.",
   "scripts": {
     "build": "pcf-scripts build",
     "clean": "pcf-scripts clean",

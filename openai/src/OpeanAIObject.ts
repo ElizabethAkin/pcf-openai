@@ -1,7 +1,7 @@
 import { Choice } from "./Choice"
 import { Usage } from "./Usage"
 
-export interface OpenAIobject {
+export interface OpenAIObject {
     id: string
     object: string
     created: number

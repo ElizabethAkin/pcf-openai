@@ -4,9 +4,12 @@
     <external-service-usage enabled="false">
     </external-service-usage>
     <property name="ResultAttribute" display-name-key="Result Attribute" description-key="Result Attribute" of-type="SingleLine.Text" usage="bound" required="true" />
-    <property name="QuestionParameter" display-name-key="Question Parameter" description-key="Question Parameter" of-type="SingleLine.Text" usage="bound" required="true" />
     <property name="QuestionText" display-name-key="Question Text" description-key="Question Text" of-type="SingleLine.Text" usage="input" required="true" />  
-    <property name="VariableOpenAIapiKey" display-name-key="Environment Variable OpenAI API Key" description-key="Environment Variable that contains OpenAI API Key" of-type="SingleLine.Text" usage="input" required="true" />  
+    <property name="QuestionParameter" display-name-key="Question Parameter" description-key="Question Parameter" of-type="SingleLine.Text" usage="bound" required="true" />
+    <property name="VariableOpenAIapiKey" display-name-key="OpenAI API Key Environment Variable" description-key="Environment Variable that contains OpenAI API Key" of-type="SingleLine.Text" usage="input" required="true" />  
+    <property name="OpenAIModel" display-name-key="OpenAI Model" description-key="ID of the model to use (ex.:text-davinci-003)" of-type="SingleLine.Text" usage="input" required="true" />  
+    <property name="OpenAITemperature" display-name-key="OpenAI Temperature" description-key="0.9 for more creative applications, and 0 for ones with a well-defined answer" of-type="Decimal" usage="input" required="true" />  
+    <property name="OpenAIMaxTokens" display-name-key="OpenAI Max Tokens" description-key="The maximum number of tokens to generate in the completion" of-type="Whole.None" usage="input" required="true" />  
     <feature-usage>
       <uses-feature name="WebAPI" required="true" />
     </feature-usage>

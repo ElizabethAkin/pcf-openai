@@ -1,14 +1,14 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { OpenAIobject } from "./src/OpeanAIObject";
+import { OpenAIObject } from "./src/OpeanAIObject";
 import { App } from "./src/App";
 import { EnvironmentVariable } from "./src/EnvironmentVariable";
 
 export class openai implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 
-    private _openAItext:OpenAIobject;
-    private _openAIresult: string;
+    private _openAIText:OpenAIObject;
+    private _openAIResult: string;
 	private _context: ComponentFramework.Context<IInputs>
 	private _container: HTMLDivElement;
 	private _notifyOutputChanged:()=> void;
@@ -32,8 +32,8 @@ export class openai implements ComponentFramework.StandardControl<IInputs, IOutp
 
         if(this._context.parameters.ResultAttribute && this._context.parameters.ResultAttribute.raw)
         {
-            this._openAIresult = this._context.parameters.ResultAttribute.raw;
-            ReactDOM.render(React.createElement(App, {openAIResponse: this._openAIresult,refreshHandler:this.callMakeRequest}),this._container);
+            this._openAIResult = this._context.parameters.ResultAttribute.raw;
+            ReactDOM.render(React.createElement(App, {openAIResponse: this._openAIResult,refreshHandler:this.callMakeRequest}),this._container);
         }
         else
         {
@@ -50,8 +50,8 @@ public updateView(context: ComponentFramework.Context<IInputs>): void
     this._context = context;
     if(this._context.parameters.ResultAttribute && this._context.parameters.ResultAttribute.raw)
     {
-        this._openAIresult = this._context.parameters.ResultAttribute.raw;
-        ReactDOM.render(React.createElement(App, {openAIResponse: this._openAIresult,refreshHandler:this.callMakeRequest}),this._container);
+        this._openAIResult = this._context.parameters.ResultAttribute.raw;
+        ReactDOM.render(React.createElement(App, {openAIResponse: this._openAIResult,refreshHandler:this.callMakeRequest}),this._container);
     }
     else
     {
@@ -63,8 +63,8 @@ public callMakeRequest():void
 {
     this.makeRequest(()=>
     {
-        this._openAIresult = this._openAItext.choices[0].text;
-        ReactDOM.render(React.createElement(App, {openAIResponse: this._openAIresult,refreshHandler:this.callMakeRequest}),this._container);
+        this._openAIResult = this._openAIText.choices[0].text;
+        ReactDOM.render(React.createElement(App, {openAIResponse: this._openAIResult,refreshHandler:this.callMakeRequest}),this._container);
         this._notifyOutputChanged();
     })
 }
@@ -76,7 +76,7 @@ public callMakeRequest():void
 public getOutputs(): IOutputs
 {
     return {
-        ResultAttribute: this._openAIresult
+        ResultAttribute: this._openAIResult
     };
 }
 
@@ -94,10 +94,10 @@ public makeRequest(callback?:()=>void){
     envVariable.getValue(this._context.parameters.VariableOpenAIapiKey.raw).then((KeyValue)=>{
 
         var data = JSON.stringify({
-            "model": "text-davinci-003",
+            "model": this._context.parameters.OpenAIModel.raw,
             "prompt": `${this._context.parameters.QuestionText.raw} ${this._context.parameters.QuestionParameter.raw}?`,
-            "temperature": 0,
-            "max_tokens": 700
+            "temperature": this._context.parameters.OpenAITemperature.raw,
+            "max_tokens": this._context.parameters.OpenAIMaxTokens.raw
         });
         fetch('https://api.openai.com/v1/completions',{
             method:'POST',
@@ -108,7 +108,7 @@ public makeRequest(callback?:()=>void){
               body : data
         }).then((response)=>{
             response.json().then((result)=>{
-                this._openAItext = result;
+                this._openAIText = result;
                 console.log(result);
                 if(callback){
                     callback();
